@@ -1,0 +1,83 @@
+<% title = 'BabyLink ： ちっちゃなAmazonアソシエイトリンクの作成ツール' %>
+<% website_url = url_for root_url %>
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <title><%= title %></title>
+  <meta content="text/html" charset="UTF-8">
+  <%= stylesheet_link_tag    "application", media: "all", "data-turbolinks-track" => true %>
+  <%= javascript_include_tag "application", "data-turbolinks-track" => true %>
+  <%= csrf_meta_tags %>
+  <%= favicon_link_tag %>
+  <% if false #params[:action] != 'index' %>
+  <meta name="robots" content="noindex">
+  <% end %>
+  <meta property="og:title" content="<%= title %>" />
+  <meta property="og:description" content="とても小さなアソシエイトリンクを作成するツールです。ブログの文中に商品を紹介したいときに効果的かつシンプル。" />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="<%= website_url %>" />
+  <meta property="og:image" content="<%= website_url %>capture.jpg" />
+</head>
+<body>
+
+<div class="container">
+<div class="row">
+  <div class="col-sm-3">
+    <h1 id="title"><%= link_to(image_tag('logo.png', alt: 'BabyLink'), root_path) %></h1>
+    <!-- BabyLink -->
+  </div>
+  <div id="top-message" class="col-sm-9">
+    <% if @associate_tag.blank? || @associate_tag == ASSOCIATE_TAG %>
+      <p><strong>トラッキングIDが設定されていません。</strong><br />初めて使用する場合は、<%= link_to 'セットアップ', amazon_setup_path %>をしてください。</p>
+    <% else %>
+      <p>あなたのトラッキングIDは、<strong><%= @associate_tag %></strong>です。<br />
+      <% if @rakuten_tag.present? %>
+        楽天IDは、<strong><%= @rakuten_tag %></strong>です。<br />
+      <% end %>
+      <%= raw '<strong>このURLをお気に入りに登録してください。</strong><br />' if params[:aid] %>設定を変更するには、<%= link_to '再設定', amazon_setup_path %>をしてください。</p>
+      <p></p>
+    <% end %>
+    
+  </div><!-- .row -->
+</div><!-- .container -->
+<%= yield %>
+</div>
+<div id="footer">
+  <ul class="footer-menu">
+  	<li><%= link_to_unless_current 'BabyLinkとは', amazon_readme_path %></li>
+  	<li><%= link_to_unless_current '使い方', amazon_howto_path %></li>
+  	<li><%= link_to_unless_current 'トラッキングIDの設定', amazon_setup_path %></li>
+  	<li><%= link_to_unless_current 'スタイルシートのひな型', amazon_css_path %></li>
+  	<li><%= link_to_unless_current 'FAQ', amazon_faq_path %></li>
+  	<li><%= link_to_unless_current '連絡', amazon_contact_path %></li>
+  </ul>
+<ul class="nav nav-pills center">
+    <li style="width:100px"><a href="https://twitter.com/share" class="twitter-share-button" data-url="<%= website_url %>" data-lang="ja" data-count="none">ツイート</a>
+<script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');</script></li>
+    <li><iframe src="//www.facebook.com/plugins/like.php?href=<%= website_url.gsub('/', '%2F').gsub(':', '%3A') %>&amp;width&amp;layout=button&amp;action=like&amp;show_faces=false&amp;share=true&amp;height=35&amp;appId=569002053185714" scrolling="no" frameborder="0" style="border:none; overflow:hidden; height:35px;" allowTransparency="true"></iframe></li>        
+    <li><a href="http://b.hatena.ne.jp/entry/<%= website_url %>" class="hatena-bookmark-button" data-hatena-bookmark-title="<%= title %>" data-hatena-bookmark-layout="standard-noballoon" data-hatena-bookmark-lang="ja" title="このエントリーをはてなブックマークに追加"><img src="http://b.st-hatena.com/images/entry-button/button-only@2x.png" alt="このエントリーをはてなブックマークに追加" width="20" height="20" style="border: none;" /></a><script type="text/javascript" src="http://b.st-hatena.com/js/bookmark_button.js" charset="utf-8" async="async"></script></li>
+</ul>
+<div class="clearfix"></div>
+  <p>当ツールは<a href="https://affiliate.amazon.co.jp/gp/advertising/api/detail/main.html">Product Advertising API(アマゾンAPI)</a>を利用して、アマゾン内を検索した結果を表示しています。</p>
+  <p align="center">Created by yhira</p>
+</div>
+<script type="text/javascript">
+twttr.widgets.load();
+</script>
+
+<script type="text/javascript">
+
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-46362483-2']);
+  _gaq.push(['_trackPageview']);
+
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+
+</script>
+
+</body>
+</html>

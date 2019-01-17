@@ -1,0 +1,29 @@
+<div class="page">
+<% if flash[:alert] %>
+  <div class="alert alert-danger"><%= flash[:alert] %></div>
+<% end %>
+<%= form_tag('/', method: :get, class: "form-inline") do %>
+  <p>AmazonアソシエイトのトラッキングIDをを入力してください。（必須））</p>
+  <div class="form-group">
+    <%= label_tag :aid, "アソシエイトID", class: "control-label sr-only" %>
+    <%= text_field_tag :aid, @associate_tag, {class: "form-control", placeholder: "トラッキングIDを入力してください", style: 'width: 300px;'} %>
+  </div> <button class="btn btn-default" type="submit"><span class="glyphicon glyphicon-pencil"></span> 設定</button>
+  <%= link_to raw('<span class="glyphicon glyphicon-trash"></span> クリア'), amazon_clear_path, class: 'btn btn-default' %>
+  <!-- 
+  <p> </p>
+  
+  <p>楽天並列リンク用IDをを入力してください。（任意）</p>
+  <div class="form-group">
+    <%= label_tag :rid, "楽天ID", class: "control-label sr-only" %>
+    <%= text_field_tag :rid, @rakuten_tag, {class: "form-control", placeholder: "楽天並列IDを入力してください", style: 'width: 300px;'} %>
+  </div>
+  <%= link_to raw('<span class="glyphicon glyphicon-trash"></span> クリア'), amazon_raku_clear_path, class: 'btn btn-default' %>
+  
+  <p> </p>
+  <p></p>
+   -->
+<% end %>
+</div>
+
+<%= render 'toppage' %>
+

@@ -1,0 +1,23 @@
+<div class="page">
+<h2>BabyLinkの使い方</h2>
+<p>使い方は簡単です。</p>
+<h3>トラッキングIDの設定</h3>
+<p>Amazonの<%= link_to_unless_current 'トラッキングIDを設定', amazon_setup_path %>します。</p>
+<%= image_tag 'howto1.png' %>
+<p>設定後のURLをお気に入りに登録しておくと良いでしょう。<br />（登録しなくても、ブラウザのクッキーさえ切らなければ20年保存される設定にしてあります。）</p>
+<br />
+<br />
+<h3>商品の検索</h3>
+<p>キーワードを入力して検索ボタンを押してください。</p>
+<%= image_tag 'howto2.png' %>
+<p>AmazonのASINで検索するとピンポイントで商品を見つける事ができます。</p>
+<%= image_tag 'howto3.png' %>
+<br />
+<br />
+<h3>商品リンク（ブログパーツ）の作成</h3>
+<p>検索結果から、目的の商品を見つけたら「この商品のリンクを作る」ボタンを押してください。</p>
+<%= image_tag 'howto4.png' %>
+<p>商品リンクが作成されます。</p>
+</div>
+
+<%= render 'toppage' %>

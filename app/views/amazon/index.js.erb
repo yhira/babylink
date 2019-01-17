@@ -1,0 +1,13 @@
+<% if flash[:alert] %>
+$('.error').html('<div class="alert alert-danger"><%=j flash[:alert] %><%=j link_to "セットアップ", amazon_setup_path %>をしてください。</div>')
+<% end %>
+$('#info').hide();
+$('#results').removeClass("col-sm-12").addClass("col-sm-6");
+$('#tags').removeClass("col-sm-12").addClass("col-sm-6");
+<% if @query.present? && @items.present? %>
+  $('#results').html('<%= j make_amazon_links(@items) %>');
+<% end %>
+<% if params[:asin].present? && @item.present? %>
+  $('#tags').html('<%= j make_baby_links(@item) %>')
+<% end %>
+$('#spin').spin(false);

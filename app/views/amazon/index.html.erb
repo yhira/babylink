@@ -1,0 +1,96 @@
+
+<%= form_tag(root_path, method: :get, remote: true, class: "form-inline-", style: 'margin-bottom: 20px;') do %>
+  <div class="input-group">
+    <div class="form-group">
+      <%= label_tag :q, "キーワード", class: "control-label sr-only" %>
+      <%= search_field_tag :q, @query, {class: "form-control", placeholder: "キーワードまたはASINを入力してください"} %>
+    </div>
+    <span class="input-group-btn">
+      <!-- <%= submit_tag "検索", class: "btn btn-default" %> -->
+      <button class="btn btn-default" type="submit" onclick="$('#spin').spin();"><i class="glyphicon glyphicon-search"></i> 検索</button>
+    </span>
+  </div><!-- /input-group -->
+<% end %>
+
+<!-- loading画像 -->
+<div id="spin"></div>
+
+<div class="error">
+<% if flash[:alert] %>
+  <!-- alert -->
+  <div class="alert alert-danger"><%= flash[:alert] %></div>
+<% end %>
+</div>
+
+<% if params[:q].blank? && params[:asin].blank? %>
+  <div class="row" id="top-body">
+    <div class="col-sm-3"></div>
+  	
+    <div class="col-sm-6" id="info">
+      <p>BabyLinkは、小さな小さなアソシエイトリンクの作成ツールです。</p>
+      <p>ブログの文中で紹介すると効果的な、小さくて控え目な画像入りアソシエイトリンクを作成することができます。</p>
+      
+      <div class="babylink-box" style="overflow: hidden; font-size: small; zoom: 1; margin: 15px 0; text-align: left;">
+      <div class="babylink-image" style="float: left; margin: 0px 15px 10px 0px; width: 75px; height: 75px; text-align: center;"><a href="http://www.amazon.co.jp/exec/obidos/ASIN/B00CYR84TG/" rel="nofollow" target="_blank"><img style="border-top: medium none; border-right: medium none; border-bottom: medium none; border-left: medium none" src="http://ecx.images-amazon.com/images/I/41BU5U0i2ML._SL75_.jpg" width="75" height="75" /></a></div>
+      <div class="babylink-info" style="overflow: hidden; zoom: 1; line-height: 120%">
+      <div class="babylink-title" style="margin-bottom: 2px; line-height: 120%"><a href="http://www.amazon.co.jp/exec/obidos/ASIN/B00CYR84TG/" rel="nofollow" target="_blank">Kindle Fire HDX 7 16GB タブレット</a></div>
+      </div>
+      <div class="babylink-lanufacturer" style="margin-bottom: 5px">Amazon</div>
+      <div class="babylink-description" style="margin: 5px 0 0 0;"></div>
+      <div class="booklink-footer" style="clear: left"></div>
+      </div>
+
+      
+      <p>商品の簡単な説明やキャッチコピーを入力することもできます（キー入力）。この短い文があるとないとでは、クリック率が違ったりします。</p>
+      
+      <div class="babylink-box" style="overflow: hidden; font-size: small; zoom: 1; margin: 15px 0; text-align: left;">
+      <div class="babylink-image" style="float: left; margin: 0px 15px 10px 0px; width: 75px; height: 75px; text-align: center;"><a href="http://www.amazon.co.jp/exec/obidos/ASIN/B00CYR84TG/" rel="nofollow" target="_blank"><img style="border-top: medium none; border-right: medium none; border-bottom: medium none; border-left: medium none" src="http://ecx.images-amazon.com/images/I/41BU5U0i2ML._SL75_.jpg" width="75" height="75" /></a></div>
+      <div class="babylink-info" style="overflow: hidden; zoom: 1; line-height: 120%">
+      <div class="babylink-title" style="margin-bottom: 2px; line-height: 120%"><a href="http://www.amazon.co.jp/exec/obidos/ASIN/B00CYR84TG/" rel="nofollow" target="_blank">Kindle Fire HDX 7 16GB タブレット</a></div>
+      </div>
+      <div class="babylink-lanufacturer" style="margin-bottom: 5px">Amazon</div>
+      <div class="babylink-description" style="margin: 5px 0 0 0;">息を飲むほど美しいディスプレイ</div>
+      <div class="booklink-footer" style="clear: left"></div>
+      </div>
+
+
+      <p>ツールのクレジットが入ってないので、シンプルなアソシエイトリンクを作ることができます。</p>
+      
+      <p>※この見本ではトラッキングIDが入っていませんが、作成したアソシエイトタグには、あなたのトラッキングIDが入ります。（作者のIDを入れるとアソシエイト規約違反になるので）</p>
+      
+      <p>もし気に入っていただけたなら、Twitterなどで紹介してもらえるとありがたいです。もちろん、利用していただくだけでもOKです。</p>
+    </div>
+    
+    <div class="col-sm-3"></div>
+  </div><!-- row -->
+  
+<% end %>
+
+
+<div class="row" style="margin-top: 20px;">
+  <div id="results" class="col-sm-12">
+    <%= make_amazon_links(@items) if @query.present? && @items.present? %>
+  </div>
+  <div id="tags" class="col-sm-12">
+    <%= make_baby_links(@item) if params[:asin].present? && @item.present? %>
+  </div>
+</div>
+
+<!-- 
+<div class="center">
+	<div class="side-corner-tag">
+	
+		<img src="/assets/1.jpg" alt="" />
+		<p><span>newest</span></p>
+		
+	</div>
+</div>
+
+<div class="side-corner-tag">
+    <div class="box"></div>
+    <p><span>リボン</span></p>
+</div>
+
+ -->
+<%#= debug params %>
+<%#= debug cookies %>
